@@ -48,7 +48,7 @@ config | javax.servlet.ServletConfig | JSP 페이지에 대한 설정 정보를 
 page | java.lang.Object | JSP 페이지를 구현한 자바 클래스 인스턴스
 exception | java.lang.Throwable | Exception 객체, Error Page 에서만 사용
 
-**request**
+### request
 클라이언트 정보 및 서버 정보 읽기
 
 메소드 | 반환형 | 설명
@@ -83,7 +83,7 @@ getHeaderNames() | Enumeration | 모든 헤더의 이름
 getIntHeader(String name) | Int | 지정한 헤더의 값을 정수 값으로 읽음
 getDateHeader(String name) | Long | 지정한 헤더의 값을 시간 값으로 읽음
 
-**response**
+### response
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -95,7 +95,7 @@ setHeader(String name, String value) | void | name 헤더의 값을 value 로 �
 setIntHeader(String name, int value) | void | name 헤더의 값을 정수 값 value 로 지정
 containsHeader(String name) | boolean | 이름이 name 인 헤더를 포함하고 있는지 true, false 로 리턴
 
-**out**
+### out
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -109,7 +109,7 @@ clearBuffer() | void | 버퍼의 내용을 비운다. clear() 메소드와 달�
 flush() | void | 버퍼를 플러시한다.
 isAutoFlush() | boolean | 버퍼가 다 찼을 경우, 자동으로 플러시 할 경우 true 리턴
 
-**pageContext**
+### pageContext
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -122,7 +122,7 @@ getOut() | JspWriter | config 기본 객체를 구한다.
 getException() | Exception | exception 기본 객체를 구한다.
 getPage() | Object | page 기본 객체를 구한다.
 
-**application**
+### application
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -137,7 +137,7 @@ getRealPath(String path) | String | 웹 어플리케이션 내 지정한 경로�
 getResource(String path) | URL | 웹 어플리케이션 내 지정한 경로에 해당하는 자원에 접근할 수 있는 URL 객체 반환
 getResourceAsStream(String path) | InputStream | 웹 어플리케이션 내 지정한 경로에 해당하는 자원으로부터 데이터를 읽어올 수 있는 InputStream 리턴
 
-**session**
+### session
 
 ### 표현 언어 (Expression Language)
 * JSP 페이지 내부에서 사용되는 간단한 스크립트 언어

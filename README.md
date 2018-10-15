@@ -1,4 +1,16 @@
-# 웹 프로그래밍 기초
+# JSP 웹 프로그래밍 기초
+JSP 같은 동적 웹 페이지는 클라이언트가 어떤 문서를 요청했을 때,
+ 해당 웹 페이지는 'JSP 컨테이너'를 거쳐 새롭게 해석된 후,
+ HTML 태그로 바꿔 전송한다. 이런 처리를 통해 사용자들은 각각 다른 출력 결과를 볼 수 있다.
+ 
+## 서버로 데이터를 전달하는 방법
+### GET
+* 웹 브라우저의 URL 창에 파라미터의 정보를 담아 전송하는 방식
+* 보안에 취약하며 정보의 크기가 1024로 제한
+
+### POST
+* 정보의 크기에 제한 없이 전송 가능
+* URL 주소창에 전송하려는 데이터의 정보가 없으므로 보안성에 좋음
 
 ---
 
@@ -12,7 +24,7 @@
 contentType | text/html | 문서의 타입 지정
 import | | 자바 클래스를 지정
 session | true | 세션 사용 여부를 지정
-buffer | | 출력 버퍼의 크기 지정 "none"일 경우 출력 버퍼를 사용하지 않는다.
+buffer | | 출력 버퍼의 크기 지정 "none"일 경우 출력 버퍼를 사용하지 않는다. (최소크기 = "8kb")
 autoFlush | true | 출력 버퍼가 가득 찼을 경우, 자동으로 버퍼에 있는 데이터를 출력 스트림에 보내고 버퍼를 비울지 여부
 info | | JSP 페이지에 대한 설명을 입력
 errorPage | | 에러가 발생했을 때 보여줄 페이지를 지정
@@ -49,7 +61,7 @@ page | java.lang.Object | JSP 페이지를 구현한 자바 클래스 인스턴�
 exception | java.lang.Throwable | Exception 객체, Error Page 에서만 사용
 
 ### request
-클라이언트 정보 및 서버 정보 읽기
+**클라이언트 정보 및 서버 정보 읽기**
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -59,12 +71,12 @@ getCharacterEncoding() | String | 클라이언트가 요청 정보를 전송할 
 getContentType() | String | 클라이언트가 요청 정보를 전송할 때 사용한 ContentType
 getProtocol() | String | 클라이언트가 요청한 프로토콜
 getMethod() | String | 웹 브라우저가 정보를 전송할 때 사용한 방식
-getRequestURI() | String | 웹 브라우저가 요청한 URL 에서 경로
+getRequestURL() | String | 웹 브라우저가 요청한 URL 에서 경로
 getContextPath() | String | JSP 페이지가 속한 웹 어플리케이션의 Context 경로
 getServerName() | String | 연결할 때 사용한 서버 이름
 getServerPort() | Int | 서버가 실행 중인 포트 번호
 
-HTML 폼, 요청 파라미터 처리
+**HTML 폼, 요청 파라미터 처리**
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -73,7 +85,7 @@ getParameterValues(String arg0) | String[] | 이름이 arg0 인 파라미터의 
 getParameterNames() | Enumeration | 웹 브라우저가 전송한 파라미터의 이름
 getParameterMap() | Map | 웹 브라우저가 전송한 파라미터의 맵
 
-요청 헤더 정보의 처리
+**요청 헤더 정보의 처리**
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -94,8 +106,16 @@ setDateHeader(String name, long date) | void | name 헤더의 값을 date 로 �
 setHeader(String name, String value) | void | name 헤더의 값을 value 로 지정
 setIntHeader(String name, int value) | void | name 헤더의 값을 정수 값 value 로 지정
 containsHeader(String name) | boolean | 이름이 name 인 헤더를 포함하고 있는지 true, false 로 리턴
+sendRedirect(String location) | | 웹 페이지 대신 지정한 URL 로 이동<br>- response.sendRedirect("http://java.sun.com");<br>- response.sendRedirect("Form.html");
+setStatus(response.필드 or 상태 코드) | | 응답에 상태 코드를 전송<br>- response.setStatus(response.SC_FORBIDDEN);<br>- response.setStatus(404);
+setError(response.필드 or 상태 코드) | | 응답에 상태 코드를 전송<br>- response.setError(response.SC_FORBIDDEN);<br>- response.setError(404);
+setBufferSize(int size) | | 버퍼의 크기 설정
 
 ### out
+* JSP 페이지가 생성하는 모든 내용은 out 객체를 통해 전송하게 된다.
+* 그러므로 out 객체를 사용해 문자열이나 변수의 값을 출력할 수 있다.
+* 그리고 JSP 에서 사용하고 있는 버퍼는 실제로 out 객체에서 내부적으로 사용하고 있는 버퍼이므로
+ 이와 관련된 메소드들도 제공한다.
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -110,6 +130,9 @@ flush() | void | 버퍼를 플러시한다.
 isAutoFlush() | boolean | 버퍼가 다 찼을 경우, 자동으로 플러시 할 경우 true 리턴
 
 ### pageContext
+* JSP 페이지에서 다른 내장 객체를 얻거나 하나의 페이지에서 다른 페이지로 제어권 등을 넘겨줄 때 사용
+
+**내장 객체 참조 관련 메소드**
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -122,7 +145,23 @@ getOut() | JspWriter | config 기본 객체를 구한다.
 getException() | Exception | exception 기본 객체를 구한다.
 getPage() | Object | page 기본 객체를 구한다.
 
+**페이지 전달 관련 메소드**
+
+메소드 | 설명
+-------|-------
+forward(String path) | path 에 지정된 페이지로 포워딩
+include(String path) | path 에 지정된 페이지 포함
+
+**속성 관련 메소드**
+
+메소드 | 설명
+-------|-------
+getAttribute(String name) | name 에 해당하는 속성값 리턴
+removeAttribute(String name) | name 에 해당하는 속성값 삭제
+setAttribute(String name, Object) | name 이란 이름으로 Object 형 데이터 저장
+
 ### application
+* 웹 어플리케이션이 실행되는 환경의 정보를 담고 있음
 
 메소드 | 반환형 | 설명
 -------|--------|-------
@@ -138,6 +177,41 @@ getResource(String path) | URL | 웹 어플리케이션 내 지정한 경로에 
 getResourceAsStream(String path) | InputStream | 웹 어플리케이션 내 지정한 경로에 해당하는 자원으로부터 데이터를 읽어올 수 있는 InputStream 리턴
 
 ### session
+* 웹 브라우저의 요청에 대한 정보의 세션과 관련 정보를 저장하고 관리하는 기능
+
+메소드 | 설명
+-------|-------
+getId() | 세션 ID 리턴
+getCreatingTime() | 세션이 생성된 시간 리턴
+getLastAccessTime() | 현재 세션으로 마지막 작업 시간 리턴
+getMaxInactiveInterval() | 세션 유지 시간 리턴
+setMaxInactiveInterval(time) | 세션 유효 시간을 time 으로 설정
+invalidate() | 현재 세션 종료
+
+### config
+* 서블릿이 초기화될 때, JSP 컨테이너가 환경 정보를 서블릿으로 전달할 때 사용하는 객체
+
+메소드 | 설명
+-------|-------
+getInitParameter(String name) | 초기화 파라미터 값 리턴
+getInitParameterNames() | 서블릿 초기화 파라미터 이름 리턴
+getServletName() | 서블릿 이름 리턴
+
+### page
+* JSP 자체를 나타내는 객체로서 자기 자신을 참조할 때 사용
+* 최근에는 거의 사용하지 않음
+    * 웹 컨테이너는 Java 만을 지원해서 굳이 page 객체를 사용하지 않고도 직접 참조할 수 있기 때문
+    
+### exception
+* JSP 페이지에서 발생한 예외를 처리할 페이지를 지정할 때 전달되는 객체
+* 기본값이 false 이므로 예외 처리를 위한 exception 객체를 사용하려면 반드시 isErrorPage 속성을 true 로 지정해야 함
+
+메소드 | 설명
+-------|-------
+getMessage() | 오류 메시지 내용 리턴
+printStackTrace() | 표준 출력 스트림으로 스택 추적 정보 출력
+toString() | 예외 클래스 이름과 오류 메시지 리턴 
+
 
 ### 표현 언어 (Expression Language)
 * JSP 페이지 내부에서 사용되는 간단한 스크립트 언어

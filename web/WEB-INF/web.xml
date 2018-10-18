@@ -26,14 +26,17 @@
     </error-page>
     <error-page>
         <exception-type>java.lang.NullPointerException</exception-type>
-        <location>/chap06/error/errorNullPointer.jsp</location>
+        <location>/chap06/error/viewErrorMessage.jsp</location>
     </error-page>
     
     <jsp-config>
         <jsp-property-group>
-            <url-pattern>/chap07/view/*</url-pattern>
-            <include-prelude>/chap07/common/variable.jspf</include-prelude>
-            <include-coda>/chap07/common/footer.jspf</include-coda>
+            <!-- property 를 적용할 JSP 파일의 URL 패턴 지정 -->
+            <url-pattern>/chap07/ex5/autoInclude.jsp</url-pattern>
+            <!-- url-pattern 태그에서 지정한 패턴에 해당되는 JSP 파일의 앞에 자동으로 삽입될 파일 지정 -->
+            <include-prelude>/chap07/ex5/variable.jspf</include-prelude>
+            <!-- url-pattern 태그에서 지정한 패턴에 해당되는 JSP 파일의 뒤에 자동으로 삽입될 파일 지정 -->
+            <include-coda>/chap07/ex5/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
 

@@ -16,6 +16,8 @@
 %>
 현재 시간은 <%= cal.get(Calendar.HOUR) %>시
  <%= cal.get(Calendar.MINUTE) %>분
- <%= cal.get(Calendar.SECOND) %>초 입니다.
+ <%= cal.get(Calendar.SECOND) %>초 입니다.<br>
+------------------------------<br>
+<%= request.getParameter("first") %> <%= request.getParameter("last") %>
 </body>
 </html>

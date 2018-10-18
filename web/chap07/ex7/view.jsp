@@ -11,11 +11,11 @@
     String viewPageURI = null;
 
     if (code.equals("A")) {
-      viewPageURI = "/chap07/viewModule/a.jsp";
+      viewPageURI = "/chap07/ex7/viewModule/a.jsp";
     } else if (code.equals("B")) {
-      viewPageURI = "/chap07/viewModule/b.jsp";
+      viewPageURI = "/chap07/ex7/viewModule/b.jsp";
     } else if (code.equals("C")) {
-      viewPageURI = "/chap07/viewModule/c.jsp";
+      viewPageURI = "/chap07/ex7/viewModule/c.jsp";
     }
 %>
 <jsp:forward page="<%= viewPageURI %>"/>

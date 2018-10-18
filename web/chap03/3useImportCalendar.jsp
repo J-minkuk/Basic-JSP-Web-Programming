@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Calander 클래스 사용</title>
+<title>Calender 클래스 사용</title>
 </head>
 <body>
 <%

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8"); // JSP 에서 파라미터 로딩 시 인코딩 지정
 	String name = request.getParameter("name");
 	String address = request.getParameter("address");
 	String[] pets = request.getParameterValues("pet");

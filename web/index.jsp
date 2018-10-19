@@ -69,6 +69,11 @@
 <a href="chap07/ex7/select.jsp">select</a><br>
 <a href="chap07/ex8/from/makeTime.jsp">makeTime</a>
 
+<hr>
+
+<a href="chap08/ex1/makeObject.jsp">makeObject</a><br>
+<a href="chap08/ex2/membershipForm.jsp">membershipForm</a>
+
 
 </body>
 </html>
